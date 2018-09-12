@@ -1,0 +1,51 @@
+<html>
+
+<head>
+	<title>Letters</title>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+	<script language="javascript" type="text/javascript" src="modernizr.custom.40469.js"></script>
+	<script type="text/javascript" src="glMatrix.js"></script>
+	<script type="text/javascript" src="webGl.js"></script>
+	<script type="text/javascript" src="webGlInit.js"></script>
+	<script type="text/javascript" src="textRenderer.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+	<script id="shaderFs" type="fragmentSource">
+		
+		precision mediump float;
+		varying vec4 vColor;
+		
+		void main(void) {
+			gl_FragColor = vColor;
+		}
+	</script>
+
+	<script id="shaderVs" type="vertexSource">
+		
+		uniform mat4 uViewMatrix;
+		uniform mat4 uProjectionMatrix;
+
+		attribute vec3 aVertexPosition;
+		attribute vec4 aVertexColor;
+		
+		varying vec4 vColor;
+		
+		void main(void) {
+			vColor = aVertexColor;
+			gl_Position = uProjectionMatrix * uViewMatrix * vec4(aVertexPosition, 1.0);
+		}
+	</script>
+
+	<link rel="icon" href="../Doc3D.jpg"/>
+	<style type="text/css">
+		body {
+		    overflow:hidden;
+		}
+		div {
+			color: rgb(255,0,0);
+		} 
+	</style>
+
+<body onload="webGLStart(); ">
+	<canvas id="webGlCanvas" style="border: none;" class="mainView"></canvas>
+</body>
